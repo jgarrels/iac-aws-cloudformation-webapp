@@ -1,0 +1,9 @@
+Description: >
+    Jonathan Garrels, 2020
+    This template deploys the server infrastructure for the Udagram web app.
+
+Parameters:
+
+Resources:
+
+Outputs:

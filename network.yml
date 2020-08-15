@@ -1,0 +1,9 @@
+Description: >
+    Jonathan Garrels
+    This template deploys the network infrastructure for the Udagram web app.
+
+Parameters:
+
+Resources:
+
+Outputs:
