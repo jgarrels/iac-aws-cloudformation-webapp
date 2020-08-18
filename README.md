@@ -9,7 +9,12 @@ along with the necessary supporting software.
 
 
 ## Usage
+### Create, update, delete stack
+Create stack: `./createstack.sh <stack-name> <template-file> <parameter-file>`
 
+Update stack: `./updatestack.sh <stack-name> <template-file> <parameter-file>`
+
+Delete stack: `./deletestack.sh <stack-name>`
 
 ## Architecture
 
