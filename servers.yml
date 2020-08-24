@@ -18,7 +18,7 @@ Parameters:
 
 Resources:
     LoadBalancerSecurityGroup:
-        Type: AWS::EC2:SecurityGroup
+        Type: AWS::EC2::SecurityGroup
         Properties:
             GroupDescription: Allow http traffic to the Load Balancer.
             VpcId:
@@ -126,8 +126,9 @@ Resources:
             HealthCheckPath: /
             HealthCheckProtocol: HTTP
             HealthCheckTimeoutSeconds: 10
-            HealthCheckThresholdCount: 3
+            HealthyThresholdCount: 3
             Port: 80
+            Protocol: HTTP
             UnhealthyThresholdCount: 5
             VpcId:
                 Fn::ImportValue:
