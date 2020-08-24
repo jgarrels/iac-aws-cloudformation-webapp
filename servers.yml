@@ -76,6 +76,16 @@ Resources:
                 VolumeSize: "10"
 
     WebAppAutoScalingGroup:
+        Type: AWS::AutoScaling::AutoScalingGroup
+        Properties:
+            VPCZoneIdentifier:
+            - Fn::ImportValue:
+                !Sub "${EnvironmentName}-VPC"
+            LaunchConfigurationName: !Ref WebAppLaunchConfig
+            MinSize: "1"
+            MaxSize: "1"
+            TargetGroupARNs:
+            - !Ref ALBTargetGroup
 
     ApplicationLoadBalancer:
 
