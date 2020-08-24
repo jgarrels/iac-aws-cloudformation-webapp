@@ -22,7 +22,7 @@ Resources:
         Properties:
             GroupDescription: Allow http traffic to the Load Balancer.
             VpcId:
-                FN::ImportValue:
+                Fn::ImportValue:
                     !Sub "${EnvironmentName}-VPC"
             SecurityGroupIngress:
             - IpProtocol: tcp
@@ -69,7 +69,7 @@ Resources:
             ImageId: !Ref ImageID
             InstanceType: !Ref InstanceType
             SecurityGroups: !Ref WebServerSecurityGroup
-            IamInstanceProfile: !Ref S3ListReadrole
+            IamInstanceProfile: !Ref S3ListReadProfile
             BlockDeviceMappings:
             - DeviceName: "/dev/sdk"
               Ebs:
@@ -104,7 +104,7 @@ Resources:
             DefaultActions:
             - Type: forward
               TargetGrouopArn: !Ref ALBTargetGroup
-            LoadBalancerARN: !Ref ApplicationLoadbalancer
+            LoadBalancerARN: !Ref ApplicationLoadBalancer
             Port: 80
             Protocol: HTTP
 
