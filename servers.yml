@@ -84,8 +84,8 @@ Resources:
             - Fn::ImportValue:
                 !Sub "${EnvironmentName}-PRIVATE-SUBNET-2"
             LaunchConfigurationName: !Ref WebAppLaunchConfig
-            MinSize: "1"
-            MaxSize: "1"
+            MinSize: "4"
+            MaxSize: "4"
             TargetGroupARNs:
             - !Ref ALBTargetGroup
 
