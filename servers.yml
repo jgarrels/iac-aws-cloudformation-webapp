@@ -80,7 +80,9 @@ Resources:
         Properties:
             VPCZoneIdentifier:
             - Fn::ImportValue:
-                !Sub "${EnvironmentName}-VPC"
+                !Sub "${EnvironmentName}-PRIVATE-SUBNET-1"
+            - Fn::ImportValue:
+                !Sub "${EnvironmentName}-PRIVATE-SUBNET-2"
             LaunchConfigurationName: !Ref WebAppLaunchConfig
             MinSize: "1"
             MaxSize: "1"
@@ -102,8 +104,8 @@ Resources:
         Properties:
             DefaultActions:
             - Type: forward
-              TargetGrouopArn: !Ref ALBTargetGroup
-            LoadBalancerARN: !Ref ApplicationLoadBalancer
+              TargetGroupArn: !Ref ALBTargetGroup
+            LoadBalancerArn: !Ref ApplicationLoadBalancer
             Port: 80
             Protocol: HTTP
 
@@ -117,6 +119,7 @@ Resources:
             - Field: path-pattern
               Values: [/]
             ListenerArn: !Ref ALBListener
+            Priority: 1
 
     ALBTargetGroup:
         Type: AWS::ElasticLoadBalancingV2::TargetGroup
