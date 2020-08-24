@@ -10,8 +10,40 @@ Parameters:
 
 Resources:
     LoadBalancerSecurityGroup:
+        Type: AWS::EC2:SecurityGroup
+        Properties:
+            GroupDescription: Allow http traffic to the Load Balancer.
+            VpcId:
+                FN::ImportValue:
+                    !Sub "${EnvironmentName}-VPC"
+            SecurityGroupIngress:
+            - IpProtocol: tcp
+              FromPort: 80
+              ToPort: 80
+              CidrIp: 0.0.0.0/0
+            SecurityGroupEgress:
+            - IpProtocol: tcp
+              FromPort: 80
+              ToPort: 80
+              CidrIp: 0.0.0.0/0
 
     WebServerSecurityGroup:
+        Type: AWS::EC2::SecurityGroup
+        Properties: 
+            GroupDescription: Allow http to the web servers.
+            VpcId:
+                Fn::ImportValue:
+                    !Sub "${EnvironmentName}-VPC"
+            SecurityGroupIngress:
+                - IpProtocol: tcp
+                  FromPort: 80
+                  ToPort: 80
+                  CidrIp: 0.0.0.0/0
+            SecurityGroupEgress:
+                - IpProtocol: tcp
+                  FromPort: 80
+                  ToPort: 80
+                  CidrIp: 0.0.0.0/0
 
     WebAppLaunchConfig:
 
@@ -31,4 +63,4 @@ Resources:
 
 Outputs:
     LoadBalancerURL:
-        
+
