@@ -60,7 +60,7 @@ Resources:
                 Fn::Base64: !Sub |
                     #!/bin/bash
                     apt-get update -y
-                    apt-get install unzip awscli -<
+                    apt-get install unzip awscli -y
                     apt-get install apache2 -y
                     systemctl start apache2.service
                     cd /var/www/html
@@ -124,7 +124,7 @@ Resources:
     ALBTargetGroup:
         Type: AWS::ElasticLoadBalancingV2::TargetGroup
         Properties:
-            HealthCheckIntervalSeconds: 20
+            HealthCheckIntervalSeconds: 15
             HealthCheckPath: /
             HealthCheckProtocol: HTTP
             HealthCheckTimeoutSeconds: 10
@@ -155,7 +155,7 @@ Resources:
                   Action:
                       - 'sts:AssumeRole'
             ManagedPolicyArns:
-                - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+                - arn:aws:iam::aws:policy/AmazonS3FullAccess
         
 
 
