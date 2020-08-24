@@ -68,7 +68,7 @@ Resources:
                     unzip -o udacity.zip
             ImageId: !Ref ImageID
             InstanceType: !Ref InstanceType
-            SecurityGroups: !Ref WebServerSecurityGroup
+            SecurityGroups: [!Ref WebServerSecurityGroup]
             IamInstanceProfile: !Ref S3ListReadProfile
             BlockDeviceMappings:
             - DeviceName: "/dev/sdk"
@@ -94,8 +94,7 @@ Resources:
             Subnets:
             - Fn::ImportValue: !Sub "${EnvironmentName}-PUBLIC-SUBNET-1"
             - Fn::ImportValue: !Sub "${EnvironmentName}-PUBLIC-SUBNET-2"
-            SecurityGroups:
-            - !Ref LoadBalancerSecurityGroup
+            SecurityGroups: [!Ref LoadBalancerSecurityGroup]
             Type: application
 
     ALBListener:
@@ -138,7 +137,22 @@ Resources:
         Type: AWS::IAM::InstanceProfile
         Properties:
             Roles:
-            - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+            - !Ref S3ListReadRole
+
+    S3ListReadRole:
+        Type: AWS::IAM::Role
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                - Effect: Allow
+                  Principal:
+                    Service:
+                      - ec2.amazonaws.com
+                  Action:
+                      - 'sts:AssumeRole'
+            ManagedPolicyArns:
+                - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
         
 
 
