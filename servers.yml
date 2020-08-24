@@ -124,7 +124,7 @@ Resources:
     ALBTargetGroup:
         Type: AWS::ElasticLoadBalancingV2::TargetGroup
         Properties:
-            HealthCheckIntervalSeconds: 60
+            HealthCheckIntervalSeconds: 20
             HealthCheckPath: /
             HealthCheckProtocol: HTTP
             HealthCheckTimeoutSeconds: 10
