@@ -3,7 +3,32 @@ Description: >
     This template deploys the server infrastructure for the Udagram web app.
 
 Parameters:
+    EnvironmentName:
+        Description: The environment name that will be prefixed to resource names.
+        Type: String
+
 
 Resources:
+    LoadBalancerSecurityGroup:
+
+    WebServerSecurityGroup:
+
+    WebAppLaunchConfig:
+
+    WebAppAutoScalingGroup:
+
+    ApplicationLoadBalancer:
+
+    ALBListener:
+
+    ALBListenerRule:
+
+    ALBTargetGroup:
+
+    S3ListReadRole:
+        
+
 
 Outputs:
+    LoadBalancerURL:
+        
