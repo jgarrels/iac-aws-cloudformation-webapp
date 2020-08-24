@@ -7,6 +7,14 @@ Parameters:
         Description: The environment name that will be prefixed to resource names.
         Type: String
 
+    ImageID:
+        Description: The EC2 AMI ID.
+        Type: String
+
+    InstanceType:
+        Description: The EC2 instance type for the web servers.
+        Type: String
+
 
 Resources:
     LoadBalancerSecurityGroup:
@@ -46,6 +54,27 @@ Resources:
                   CidrIp: 0.0.0.0/0
 
     WebAppLaunchConfig:
+        Type: AWS::AutoScaling::LaunchConfiguration
+        Properties:
+            UserData:
+                Fn::Base64: !Sub |
+                    #!/bin/bash
+                    apt-get update -y
+                    apt-get install unzip awscli -<
+                    apt-get install apache2 -y
+                    systemctl start apache2.service
+                    cd /var/www/html
+                    aws s3 cp s3://udacity-demo-1/udacity.zip
+                    unzip -o udacity.zip
+            ImageId: !Ref ImageID
+            InstanceType: !Ref InstanceType
+            SecurityGroups: !Ref WebServerSecurityGroup
+            IamInstanceProfile: !Ref S3ListReadrole
+            BlockDeviceMappings:
+            - DeviceName: "/dev/sdk"
+              Ebs:
+                VolumeSize: "10"
+            
 
     WebAppAutoScalingGroup:
 
