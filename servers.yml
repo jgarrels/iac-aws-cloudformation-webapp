@@ -86,7 +86,11 @@ Resources:
 
     ALBTargetGroup:
 
-    S3ListReadRole:
+    S3ListReadProfile:
+        Type: AWS::IAM::InstanceProfile
+        Properties:
+            Roles:
+            - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
         
 
 
